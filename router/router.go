@@ -8,4 +8,5 @@ import (
 func SetupRoutes(app *fiber.App) {
     api := app.Group("/einvoice", logger.New())
     SetupInvoiceRoutes(api)
+    SetupCNRoutes(api)
 }

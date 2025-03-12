@@ -53,6 +53,26 @@ info:
   title: Swagger E-Invoice API
   version: "1.0"
 paths:
+  /cn/events:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dbmodel.INTF_INT_EINVOICE_EVENTS'
+      tags:
+      - Credit Note
+  /cn/xml:
+    get:
+      produces:
+      - text/xml
+      responses:
+        "200":
+          description: OK
+      tags:
+      - Credit Note
   /invoice/events:
     get:
       produces:

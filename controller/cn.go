@@ -7,15 +7,15 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// GetInvoiceXml
+// GetCNXml
 //
-// @Tags Invoice
+// @Tags Credit Note
 // @Produce xml
 // @Success 200
-// @Router /invoice/xml [get]
-func GetInvoiceXml(c *fiber.Ctx) error {
+// @Router /cn/xml [get]
+func GetCNXml(c *fiber.Ctx) error {
 	st, _ := service.GetInvoiceSetting()
-	o, _ := service.GetInvoiceEvent("01")
+	o, _ := service.GetInvoiceEvent("02")
 	var (
 		buyer dbmodel.INTF_INT_EINVOICE_BUYER
 		supp  dbmodel.INTF_INT_EINVOICE_SUPPLIER
@@ -36,7 +36,7 @@ func GetInvoiceXml(c *fiber.Ctx) error {
 		prepaid_payment_time = o.PRE_PAYMENT_DATE[11:19]
 	}
 
-	err := c.Render("invoice.xml", fiber.Map{
+	err := c.Render("cn.xml", fiber.Map{
 		"issue_date":           o.EINVOICE_DATE[:10],
 		"issue_time":           o.EINVOICE_DATE[11:19],
 		"billing_date":         o.BILLING_DATE[:10],
@@ -52,15 +52,15 @@ func GetInvoiceXml(c *fiber.Ctx) error {
 	return err
 }
 
-// GetInvoiceEvent
+// GetCNEvent
 //
-// @Tags Invoice
+// @Tags Credit Note
 // @Produce json
 // @Success 200 {object} dbmodel.INTF_INT_EINVOICE_EVENTS
-// @Router /invoice/events [get]
-func GetInvoiceEvent(c *fiber.Ctx) error {
+// @Router /cn/events [get]
+func GetCNEvent(c *fiber.Ctx) error {
 	st, _ := service.GetInvoiceSetting()
-	o, _ := service.GetInvoiceEvent("01")
+	o, _ := service.GetInvoiceEvent("02")
 	if o.EVENT_SEQ_NO != "" {
 		id := o.EVENT_SEQ_NO
 		buyer, _ := service.GetInvoiceBuyer(id)

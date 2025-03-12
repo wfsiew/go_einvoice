@@ -56,7 +56,7 @@ func GetInvoiceSetting() (dbmodel.INTF_INT_EINVOICE_SETTING, error) {
 	return o, nil
 }
 
-func GetInvoiceEvent() (dbmodel.INTF_INT_EINVOICE_EVENTS, error) {
+func GetInvoiceEvent(typeCode string) (dbmodel.INTF_INT_EINVOICE_EVENTS, error) {
 	o := dbmodel.INTF_INT_EINVOICE_EVENTS{}
 	db := database.GetDb()
     if db == nil {
@@ -70,8 +70,9 @@ func GetInvoiceEvent() (dbmodel.INTF_INT_EINVOICE_EVENTS, error) {
 	    TOTAL_PAYABLE_AMT, TOTAL_NET_AMT, TOTAL_TAX_AMT, ROUNDING_AMT, TOTAL_TAX_AMT_PER_TAX_TYPE,
 	    TOTAL_TAXABLE_AMT_PER_TAX_TYPE, TAX_EXEMPTION_DETAILS, TAX_EXEMPTION_AMT
 		FROM INTF_INT_EINVOICE_EVENTS
+		WHERE EINVOICE_TYPE_CODE = :typeCode
 		ORDER BY CREATION_DATE_TIME FETCH FIRST 1 ROWS ONLY`
-	rows, err := db.Query(q)
+	rows, err := db.Query(q, typeCode)
 	if err != nil {
 		if rows != nil {
 			defer rows.Close()
