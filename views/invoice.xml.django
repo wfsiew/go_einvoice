@@ -1,0 +1,180 @@
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+    xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+    xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+    <cbc:ID>{{ event.EINVOICE_CODE }}</cbc:ID>
+    <cbc:IssueDate>{{ issue_date }}</cbc:IssueDate>
+    <cbc:IssueTime>{{ issue_time }}Z</cbc:IssueTime>
+    <cbc:InvoiceTypeCode listVersionID="{{ setting.EINVOICE_VERSION }}">{{ event.EINVOICE_TYPE_CODE }}</cbc:InvoiceTypeCode>
+    <cbc:DocumentCurrencyCode>{{ setting.CURRENCY_CODE }}</cbc:DocumentCurrencyCode>
+    <cac:InvoicePeriod>
+        <cbc:StartDate>{{ billing_date }}</cbc:StartDate>
+        <cbc:EndDate>{{ billing_date }}</cbc:EndDate>
+        <cbc:Description>{{ setting.BILLING_FREQUENCY }}</cbc:Description>
+    </cac:InvoicePeriod>
+    <cac:BillingReference>
+        <cac:AdditionalDocumentReference>
+            <cbc:ID>{{ event.BILL_REF_NO }}</cbc:ID>
+        </cac:AdditionalDocumentReference>
+    </cac:BillingReference>
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cbc:IndustryClassificationCode name="{{ supp.SUPPLIER_BIZ_ACTY_DESC }}">{{ supp.SUPPLIER_MSIC_CODE }}</cbc:IndustryClassificationCode>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="TIN">{{ supp.SUPPLIER_TIN }}</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="BRN">{{ supp.SUPPLIER_REG_ID }}</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="SST">{{ supp.SUPPLIER_SST_REG_NO }}</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="TTX">{{ supp.SUPPLIER_TOURISM_TAX_REG_NO }}</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PostalAddress>
+                <cbc:CityName>{{ supp.ADDRESS_CITY }}</cbc:CityName>
+                <cbc:PostalZone>{{ supp.ADDRESS_POSTAL }}</cbc:PostalZone>
+                <cbc:CountrySubentityCode>{{ supp.ADDRESS_STATE }}</cbc:CountrySubentityCode>
+                <cac:AddressLine>
+                    <cbc:Line>{{ supp.ADDRESS_0 }}</cbc:Line>
+                </cac:AddressLine>
+                <cac:AddressLine>
+                    <cbc:Line>{{ supp.ADDRESS_1 }}</cbc:Line>
+                </cac:AddressLine>
+                <cac:AddressLine>
+                    <cbc:Line>{{ supp.ADDRESS_2 }}</cbc:Line>
+                </cac:AddressLine>
+                <cac:Country>
+                    <cbc:IdentificationCode listID="ISO3166-1" listAgencyID="6">{{ supp.ADDRESS_COUNTRY }}</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>{{ supp.SUPPLIER_NAME }}</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Telephone>{{ supp.CONTACT_NO }}</cbc:Telephone>
+                <cbc:ElectronicMail>{{ supp.SUPPLIER_EMAIL }}</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="TIN">{{ buyer.BUYER_TIN }}</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="BRN">{{ buyer.BUYER_REG_ID }}</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="SST">{{ buyer.BUYER_SST_REG_NO }}</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PostalAddress>
+                <cbc:CityName>{{ buyer.ADDRESS_CITY }}</cbc:CityName>
+                <cbc:PostalZone>{{ buyer.ADDRESS_POSTAL }}</cbc:PostalZone>
+                <cbc:CountrySubentityCode>{{ buyer.ADDRESS_STATE }}</cbc:CountrySubentityCode>
+                <cac:AddressLine>
+                    <cbc:Line>{{ buyer.ADDRESS_0 }}</cbc:Line>
+                </cac:AddressLine>
+                <cac:AddressLine>
+                    <cbc:Line>{{ buyer.ADDRESS_1 }}</cbc:Line>
+                </cac:AddressLine>
+                <cac:AddressLine>
+                    <cbc:Line>{{ buyer.ADDRESS_2 }}</cbc:Line>
+                </cac:AddressLine>
+                <cac:Country>
+                    <cbc:IdentificationCode listID="ISO3166-1" listAgencyID="6">{{ buyer.ADDRESS_COUNTRY }}</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>{{ buyer.BUYER_NAME }}</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Telephone>{{ buyer.CONTACT_NO }}</cbc:Telephone>
+                <cbc:ElectronicMail>{{ buyer.BUYER_EMAIL }}</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+    <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>{{ event.PAYMENT_MODE }}</cbc:PaymentMeansCode>
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>{{ event.SUPPLIER_BANK_ACC }}</cbc:ID>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
+    <cac:PaymentTerms>
+        <cbc:Note>{{ event.PAYMENT_TERMS }}</cbc:Note>
+    </cac:PaymentTerms>
+    <cac:PrepaidPayment>
+        <cbc:ID>{{ event.PRE_PAYMENT_REF_NO }}</cbc:ID>
+        <cbc:PaidAmount currencyID="{{ setting.CURRENCY_CODE }}">{{ event.PRE_PAYMENT_AMT }}</cbc:PaidAmount>
+        <cbc:PaidDate>{{ prepaid_payment_date }}</cbc:PaidDate>
+        <cbc:PaidTime>{{ prepaid_payment_time }}Z</cbc:PaidTime>
+    </cac:PrepaidPayment>
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="{{ setting.CURRENCY_CODE }}">{{ event.TOTAL_TAX_AMT }}</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="{{ setting.CURRENCY_CODE }}">{{ event.TOTAL_TAX_AMT_PER_TAX_TYPE }}</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="{{ setting.CURRENCY_CODE }}">{{ event.TOTAL_TAXABLE_AMT_PER_TAX_TYPE }}</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:ID>{{ setting.TAX_TYPE }}</cbc:ID>
+                <cac:TaxScheme>
+                    <cbc:ID schemeID="UN/ECE 5153" schemeAgencyID="6">OTH</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    <cac:LegalMonetaryTotal>
+        <cbc:LineExtensionAmount currencyID="{{ setting.CURRENCY_CODE }}">{{ event.TOTAL_NET_AMT }}</cbc:LineExtensionAmount>
+        <cbc:TaxExclusiveAmount currencyID="{{ setting.CURRENCY_CODE }}">{{ event.TOTAL_EXCLUDING_TAX }}</cbc:TaxExclusiveAmount>
+        <cbc:TaxInclusiveAmount currencyID="{{ setting.CURRENCY_CODE }}">{{ event.TOTAL_INCLUDING_TAX }}</cbc:TaxInclusiveAmount>
+        <cbc:PayableRoundingAmount currencyID="{{ setting.CURRENCY_CODE }}">{{ event.ROUNDING_AMT }}</cbc:PayableRoundingAmount>
+        <cbc:PayableAmount currencyID="{{ setting.CURRENCY_CODE }}">{{ event.TOTAL_PAYABLE_AMT }}</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+    {% for i in items %}
+    <cac:InvoiceLine>
+        <cbc:ID>{{ forloop.counter }}</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="{{ i.MEASUREMENT }}">{{ i.QUANTITY }}</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="{{ setting.CURRENCY_CODE }}">{{ i.TOTAL_EXCLUDING_TAX }}</cbc:LineExtensionAmount>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReason>Sample Description</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>{{ i.DISCOUNT_RATE }}</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="{{ setting.CURRENCY_CODE }}">{{ i.DISCOUNT_AMT }}</cbc:Amount>
+        </cac:AllowanceCharge>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReason>Sample Description</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>{{ i.CHARGE_RATE }}</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="{{ setting.CURRENCY_CODE }}">{{ i.CHARGE_AMT }}</cbc:Amount>
+        </cac:AllowanceCharge>
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="{{ setting.CURRENCY_CODE }}">{{ i.TAX_AMT }}</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="{{ setting.CURRENCY_CODE }}">{{ i.TAX_EXMEMPTED_AMT }}</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="{{ setting.CURRENCY_CODE }}">{{ i.TAX_RATE }}</cbc:TaxAmount>
+                <cbc:BaseUnitMeasure unitCode="C62">1</cbc:BaseUnitMeasure>
+                <cbc:PerUnitAmount currencyID="{{ setting.CURRENCY_CODE }}">10.00</cbc:PerUnitAmount>
+                <cac:TaxCategory>
+                    <cbc:ID>{{ i.TAX_TYPE }}</cbc:ID>
+                    <cbc:Percent>6.00</cbc:Percent>
+                    <cbc:TaxExemptionReason>{{ i.TAX_EXEMPTION_DESC }}</cbc:TaxExemptionReason>
+                    <cac:TaxScheme>
+                        <cbc:ID schemeID="UN/ECE 5153" schemeAgencyID="6">OTH</cbc:ID>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:TaxTotal>
+        <cac:Item>
+            <cbc:Description>{{ i.ITEM_DESC }}</cbc:Description>
+            <cac:CommodityClassification>
+                <cbc:ItemClassificationCode listID="CLASS">{{ i.CLASSIFICATION_CODE }}</cbc:ItemClassificationCode>
+            </cac:CommodityClassification>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="{{ setting.CURRENCY_CODE }}">{{ i.UNIT_PRICE }}</cbc:PriceAmount>
+        </cac:Price>
+        <cac:ItemPriceExtension>
+            <cbc:Amount currencyID="{{ setting.CURRENCY_CODE }}">{{ i.SUBTOTAL }}</cbc:Amount>
+        </cac:ItemPriceExtension>
+    </cac:InvoiceLine>
+    {% endfor %}
+</Invoice>

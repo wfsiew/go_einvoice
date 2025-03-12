@@ -1,0 +1,100 @@
+basePath: /einvoice
+definitions:
+  dbmodel.INTF_INT_EINVOICE_EVENTS:
+    properties:
+      bill_REF_NO:
+        type: string
+      billing_DATE:
+        type: string
+      einvoice_CODE:
+        type: string
+      einvoice_DATE:
+        type: string
+      einvoice_TYPE_CODE:
+        type: string
+      event_SEQ_NO:
+        type: string
+      payment_MODE:
+        type: string
+      payment_TERMS:
+        type: string
+      pre_PAYMENT_AMT:
+        type: number
+      pre_PAYMENT_DATE:
+        type: string
+      pre_PAYMENT_REF_NO:
+        type: string
+      rounding_AMT:
+        type: number
+      supplier_BANK_ACC:
+        type: string
+      tax_EXEMPTION_AMT:
+        type: number
+      tax_EXEMPTION_DETAILS:
+        type: string
+      total_EXCLUDING_TAX:
+        type: number
+      total_INCLUDING_TAX:
+        type: number
+      total_NET_AMT:
+        type: number
+      total_PAYABLE_AMT:
+        type: number
+      total_TAX_AMT:
+        type: number
+      total_TAX_AMT_PER_TAX_TYPE:
+        type: number
+      total_TAXABLE_AMT_PER_TAX_TYPE:
+        type: number
+    type: object
+  dbmodel.INTF_INT_EINVOICE_SETTING:
+    properties:
+      billing_FREQUENCY:
+        type: string
+      currency_CODE:
+        type: string
+      currency_EXCHANGE_RATE:
+        type: string
+      einvoice_VERSION:
+        type: string
+      tax_TYPE:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: This is a e-invoice server.
+  title: Swagger E-Invoice API
+  version: "1.0"
+paths:
+  /invoice/events:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dbmodel.INTF_INT_EINVOICE_EVENTS'
+      tags:
+      - Invoice
+  /invoice/setting:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dbmodel.INTF_INT_EINVOICE_SETTING'
+      tags:
+      - Invoice
+  /invoice/xml:
+    get:
+      produces:
+      - text/xml
+      responses:
+        "200":
+          description: OK
+      tags:
+      - Invoice
+swagger: "2.0"
