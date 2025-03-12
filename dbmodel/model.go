@@ -71,6 +71,7 @@ type INTF_INT_EINVOICE_BUYER struct {
 }
 
 type INTF_INT_EINVOICE_LINE_ITEM struct {
+	ID int
 	EVENT_SEQ_NO string
 	CLASSIFICATION_CODE string
 	ITEM_DESC string

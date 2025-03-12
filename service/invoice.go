@@ -351,6 +351,8 @@ func GetInvoiceLineItem(eventSeqNo string) ([]dbmodel.INTF_INT_EINVOICE_LINE_ITE
 		CHARGE_AMT sql.NullFloat64
 	)
 
+	n := 1
+
 	for rows.Next() {
         err := rows.Scan(&EVENT_SEQ_NO, &CLASSIFICATION_CODE, &ITEM_DESC, &UNIT_PRICE, &TAX_TYPE,
 		    &TAX_RATE, &TAX_AMT, &TAX_EXEMPTION_DESC, &TAX_EXMEMPTED_AMT, &SUBTOTAL,
@@ -363,6 +365,7 @@ func GetInvoiceLineItem(eventSeqNo string) ([]dbmodel.INTF_INT_EINVOICE_LINE_ITE
         }
 
         o := dbmodel.INTF_INT_EINVOICE_LINE_ITEM{
+			ID: n,
             EVENT_SEQ_NO: EVENT_SEQ_NO.String,
             CLASSIFICATION_CODE: CLASSIFICATION_CODE.String,
             ITEM_DESC: ITEM_DESC.String,
@@ -385,6 +388,7 @@ func GetInvoiceLineItem(eventSeqNo string) ([]dbmodel.INTF_INT_EINVOICE_LINE_ITE
 			CHARGE_AMT: CHARGE_AMT.Float64,
         }
         ls = append(ls, o)
+		n = n + 1
     }
 
 	return ls, nil

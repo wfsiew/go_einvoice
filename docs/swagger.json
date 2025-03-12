@@ -26,24 +26,6 @@
                 }
             }
         },
-        "/invoice/setting": {
-            "get": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Invoice"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/dbmodel.INTF_INT_EINVOICE_SETTING"
-                        }
-                    }
-                }
-            }
-        },
         "/invoice/xml": {
             "get": {
                 "produces": [
@@ -129,26 +111,6 @@
                 },
                 "total_TAX_AMT_PER_TAX_TYPE": {
                     "type": "number"
-                }
-            }
-        },
-        "dbmodel.INTF_INT_EINVOICE_SETTING": {
-            "type": "object",
-            "properties": {
-                "billing_FREQUENCY": {
-                    "type": "string"
-                },
-                "currency_CODE": {
-                    "type": "string"
-                },
-                "currency_EXCHANGE_RATE": {
-                    "type": "string"
-                },
-                "einvoice_VERSION": {
-                    "type": "string"
-                },
-                "tax_TYPE": {
-                    "type": "string"
                 }
             }
         }

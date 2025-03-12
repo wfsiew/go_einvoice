@@ -131,7 +131,7 @@
     </cac:LegalMonetaryTotal>
     {% for i in items %}
     <cac:InvoiceLine>
-        <cbc:ID>{{ forloop.counter }}</cbc:ID>
+        <cbc:ID>{{ i.ID }}</cbc:ID>
         <cbc:InvoicedQuantity unitCode="{{ i.MEASUREMENT }}">{{ i.QUANTITY }}</cbc:InvoicedQuantity>
         <cbc:LineExtensionAmount currencyID="{{ setting.CURRENCY_CODE }}">{{ i.TOTAL_EXCLUDING_TAX }}</cbc:LineExtensionAmount>
         <cac:AllowanceCharge>
@@ -149,8 +149,8 @@
         <cac:TaxTotal>
             <cbc:TaxAmount currencyID="{{ setting.CURRENCY_CODE }}">{{ i.TAX_AMT }}</cbc:TaxAmount>
             <cac:TaxSubtotal>
-                <cbc:TaxableAmount currencyID="{{ setting.CURRENCY_CODE }}">{{ i.TAX_EXMEMPTED_AMT }}</cbc:TaxableAmount>
-                <cbc:TaxAmount currencyID="{{ setting.CURRENCY_CODE }}">{{ i.TAX_RATE }}</cbc:TaxAmount>
+                <cbc:TaxableAmount currencyID="{{ setting.CURRENCY_CODE }}">{{ i.TOTAL_EXCLUDING_TAX }}</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="{{ setting.CURRENCY_CODE }}">{{ i.SUBTOTAL }}</cbc:TaxAmount>
                 <cbc:BaseUnitMeasure unitCode="C62">1</cbc:BaseUnitMeasure>
                 <cbc:PerUnitAmount currencyID="{{ setting.CURRENCY_CODE }}">10.00</cbc:PerUnitAmount>
                 <cac:TaxCategory>

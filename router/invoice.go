@@ -7,7 +7,6 @@ import (
 
 func SetupInvoiceRoutes(router fiber.Router) {
 	inv := router.Group("/invoice")
-	inv.Get("/setting", controller.GetInvoiceSetting)
 	inv.Get("/events", controller.GetInvoiceEvent)
 	inv.Get("/xml", controller.GetInvoiceXml)
 }
